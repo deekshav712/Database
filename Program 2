@@ -1,0 +1,98 @@
+create table Student
+(USN varchar(20) primary key,
+NAME varchar(20) not null,
+DOB date,
+BRANCH char(10),
+MARK1 float(5,2),
+MARK2 float(5,2),
+MARK3 float(5,2),
+TOTAL float(5,2),
+GPA float(5,2));
+
+insert into Student(USN,NAME,DOB,BRANCH,MARK1,MARK2,MARK3) values('4VP18CS066','Kumar','2000-11-17','CS',50,60,80);
+
+mysql> select * from Student;
++------------+-----------+------------+--------+-------+-------+-------+-------+------+
+| USN        | NAME      | DOB        | BRANCH | MARK1 | MARK2 | MARK3 | TOTAL | GPA  |
++------------+-----------+------------+--------+-------+-------+-------+-------+------+
+| 4VP18CS058 | Dennis    | 2000-12-10 | CS     | 60.00 | 70.00 | 90.00 |  NULL | NULL |
+| 4VP18CS059 | Teja      | 2000-11-11 | CS     | 50.00 | 60.00 | 90.00 |  NULL | NULL |
+| 4VP18CS060 | Sunil     | 2000-11-13 | CS     | 50.00 | 60.00 | 40.00 |  NULL | NULL |
+| 4VP21MC007 | Deeksha   | 2000-12-07 | MCA    | 90.00 | 90.00 | 90.00 |  NULL | NULL |
+| 4VP21MC008 | Deepak    | 2000-12-08 | MCA    | 90.00 | 90.00 | 90.00 |  NULL | NULL |
+| 4VP21MC009 | Deekshith | 2000-12-09 | MCA    | 80.00 | 70.00 | 90.00 |  NULL | NULL |
++------------+-----------+------------+--------+-------+-------+-------+-------+------+
+
+query 1:update the column total by adding the columns mark1,mark2,mark3.
+UPDATE Student SET TOTAL=MARK1+MARK2+MARK3;
+
+query 2:find the GPA score of all the students.
+update Student set GPA=(total/3);
++------------+-----------+------------+--------+-------+-------+-------+--------+-------+
+| USN        | NAME      | DOB        | BRANCH | MARK1 | MARK2 | MARK3 | TOTAL  | GPA   |
++------------+-----------+------------+--------+-------+-------+-------+--------+-------+
+| 4VP18CS058 | Dennis    | 2000-12-10 | CS     | 60.00 | 70.00 | 90.00 | 220.00 | 73.33 |
+| 4VP18CS059 | Teja      | 2000-11-11 | CS     | 50.00 | 60.00 | 90.00 | 200.00 | 66.67 |
+| 4VP18CS060 | Sunil     | 2000-11-13 | CS     | 50.00 | 60.00 | 40.00 | 150.00 | 50.00 |
+| 4VP21MC007 | Deeksha   | 2000-12-07 | MCA    | 90.00 | 90.00 | 90.00 | 270.00 | 90.00 |
+| 4VP21MC008 | Deepak    | 2000-12-08 | MCA    | 90.00 | 90.00 | 90.00 | 270.00 | 90.00 |
+| 4VP21MC009 | Deekshith | 2000-12-09 | MCA    | 80.00 | 70.00 | 90.00 | 240.00 | 80.00 |
++------------+-----------+------------+--------+-------+-------+-------+--------+-------+
+
+query 3:find the student who born on a particular year of birth from the date-of-birth column.
+select NAME FROM Student
+where DOB BETWEEN "2000-12-07" AND "2000-12-09";
++-----------+
+| NAME      |
++-----------+
+| Deeksha   |
+| Deepak    |
+| Deekshith |
++-----------+
+
+query 4:list the student who are studying a particular branch of study.
+SELECT * FROM Student
+where BRANCH="MCA";
++------------+-----------+------------+--------+-------+-------+-------+--------+-------+
+| USN        | NAME      | DOB        | BRANCH | MARK1 | MARK2 | MARK3 | TOTAL  | GPA   |
++------------+-----------+------------+--------+-------+-------+-------+--------+-------+
+| 4VP21MC007 | Deeksha   | 2000-12-07 | MCA    | 90.00 | 90.00 | 90.00 | 270.00 | 90.00 |
+| 4VP21MC008 | Deepak    | 2000-12-08 | MCA    | 90.00 | 90.00 | 90.00 | 270.00 | 90.00 |
+| 4VP21MC009 | Deekshith | 2000-12-09 | MCA    | 80.00 | 70.00 | 90.00 | 240.00 | 80.00 |
++------------+-----------+------------+--------+-------+-------+-------+--------+-------+
+
+
+query 5:find the maximum GPA score of the student branch-wise.
+SELECT  MAX(GPA),BRANCH
+FROM Student
+GROUP BY BRANCH;
++----------+--------+
+| MAX(GPA) | BRANCH |
++----------+--------+
+|    73.33 | CS     |
+|    90.00 | MCA    |
++----------+--------+
+
+query 6:find the students whose name start with the alphabet "s".
+SELECT NAME
+FROM Student
+WHERE NAME like "S%";
++-------+
+| NAME  |
++-------+
+| Sunil |
++-------+
+
+
+query 7:find the students whose name ends with alphabet "ar".
+select name from Student
+where NAME like "%ar";
++-------+
+| name  |
++-------+
+| Kumar |
++-------+
+
+query 8:delete the students details whose usn is given as 1001.
+delete  from Student
+where usn="4VP21MC009";
