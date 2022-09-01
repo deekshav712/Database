@@ -1,0 +1,159 @@
+create database VP21MC007_Vote;
+use VP21MC007_Vote
+----------------------------------------------------------------------------------
+create table Consistency(cons_id int(20) primary key,
+csname varchar(20),
+csstate varchar(20),
+no_of_voters int(10));
+
+insert into Consistency values(11,'flexibility','karnataka','50');
+insert into Consistency values(12,'texture','karnataka','40');
+insert into Consistency values(13,'compactness','karnataka','100');
+insert into Consistency values(14,'density','gujarat','30');
+insert into Consistency values(15,'elasticity','tamil nadu','80');
+
+select * from Consistency;
++---------+-------------+------------+--------------+
+| cons_id | csname      | csstate    | no_of_voters |
++---------+-------------+------------+--------------+
+|      11 | flexibility | karnataka  |           50 |
+|      12 | texture     | karnataka  |           40 |
+|      13 | compactness | karnataka  |          100 |
+|      14 | density     | gujarat    |           30 |
+|      15 | elasticity  | tamil nadu |           80 |
++---------+-------------+------------+--------------+
+
+
+create table Party(pid varchar(10) primary key,
+pname varchar(10),
+symbol varchar(10));
+
+desc Party;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| pid    | varchar(10) | NO   | PRI | NULL    |       |
+| pname  | varchar(10) | YES  |     | NULL    |       |
+| symbol | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+insert into Party values('p1','Razzle','Accute');
+insert into Party values('p2','Rocking ','circle');
+insert into Party values('p3','Funky Fest','square');
+insert into Party values('p4','Fantastic','traingle');
+insert into Party values('p5','Untamed','rectangle');
+
+select * from Party;
++-----+------------+-----------+
+| pid | pname      | symbol    |
++-----+------------+-----------+
+| p1  | Razzle     | Accute    |
+| p2  | Rocking    | circle    |
+| p3  | Funky Fest | square    |
+| p4  | Fantastic  | traingle  |
+| p5  | Untamed    | rectangle |
++-----+------------+-----------+
+
+create table Candidate(cand_id varchar(10) primary key,
+name varchar(10),
+phone int(10),
+age varchar(10),
+state varchar(10),
+pid varchar(10),
+foreign key(pid) references Party(Pid));
+
+desc Candidate;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| cand_id | varchar(10) | NO   | PRI | NULL    |       |
+| name    | varchar(10) | YES  |     | NULL    |       |
+| phone   | int         | YES  |     | NULL    |       |
+| age     | varchar(10) | YES  |     | NULL    |       |
+| state   | varchar(10) | YES  |     | NULL    |       |
+| pid     | varchar(10) | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+insert into Candidate values('c1','AMIN DAR',1234567890,25,'karnataka','p1');
+insert into Candidate values('c2','SANJAY ',1225673890,30,'gujarat','p2');
+insert into Candidate values('c3','RASHID',1234567777,29,'tamil nadu','p3');
+insert into Candidate values('c4','REHMAN',1234566660,35,'gujarat','p4');
+insert into Candidate values('c5','AMIN DAR',1234567890,25,'tamil nadu','p1');
+
+select * from Candidate;
++---------+----------+------------+------+------------+------+
+| cand_id | name     | phone      | age  | state      | pid  |
++---------+----------+------------+------+------------+------+
+| c1      | AMIN DAR | 1234567890 | 25   | karnataka  | p1   |
+| c2      | SANJAY   | 1225673890 | 30   | gujarat    | p2   |
+| c3      | RASHID   | 1234567777 | 29   | tamil nadu | p3   |
+| c4      | REHMAN   | 1234566660 | 35   | gujarat    | p4   |
+| c5      | AMIN DAR | 1234567890 | 25   | tamil nadu | p1   |
++---------+----------+------------+------+------------+------+
+
+
+create table Voter(vid varchar(10) primary key,
+vname varchar(10),
+age int (5),
+adr varchar(10),
+cons_id int(20) references Consistency(cons_id),
+cand_id varchar(20) references Candidate(cand_id));
+
+desc Voter;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| vid     | varchar(10) | NO   | PRI | NULL    |       |
+| vname   | varchar(10) | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| adr     | varchar(10) | YES  |     | NULL    |       |
+| cons_id | int         | YES  |     | NULL    |       |
+| cand_id | varchar(20) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+insert into Voter values('v1','jansi',22,'puttur',11,'c1');
+insert into Voter values('v2','deeksha',22,'puttur',12,'c2');
+insert into Voter values('v3','sibin',23,'puttur',13,'c3');
+insert into Voter values('v4','geetha',25,'puttur',14,'c4');
+insert into Voter values('v5','navya',26,'puttur',15,'c5');
+
+select * from Voter;
++-----+---------+------+--------+---------+---------+
+| vid | vname   | age  | adr    | cons_id | cand_id |
++-----+---------+------+--------+---------+---------+
+| v1  | jansi   |   22 | puttur |      11 | c1      |
+| v2  | deeksha |   22 | puttur |      12 | c2      |
+| v3  | sibin   |   23 | puttur |      13 | c3      |
+| v4  | geetha  |   25 | puttur |      14 | c4      |
+| v5  | navya   |   26 | puttur |      15 | c5      |
++-----+---------+------+--------+---------+---------+
+
+create table Contest(
+primary key(cons_id,cand_id),
+cons_id int(20) references Consistency(cons_id),
+cand_id varchar(20) references Candidate(cand_id));
+
+desc Contest;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| cons_id | int         | NO   | PRI | NULL    |       |
+| cand_id | varchar(20) | NO   | PRI | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+insert into Contest values(11,'c1');
+insert into Contest values(12,'c1');
+insert into Contest values(13,'c2');
+insert into Contest values(14,'c3');
+insert into Contest values(15,'c4');
+
+select * from Contest;
++---------+---------+
+| cons_id | cand_id |
++---------+---------+
+|      11 | c1      |
+|      12 | c1      |
+|      13 | c2      |
+|      14 | c3      |
+|      15 | c4      |
++---------+---------+
+----------------------------------------------------------------------------------
+
