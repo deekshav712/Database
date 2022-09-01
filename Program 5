@@ -1,6 +1,4 @@
-create database VP21MC007_Vote;
-use VP21MC007_Vote
-----------------------------------------------------------------------------------
+
 create table Consistency(cons_id int(20) primary key,
 csname varchar(20),
 csstate varchar(20),
