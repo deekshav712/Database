@@ -3,12 +3,48 @@ Tname varchar(20),
 age int(10),
 country varchar(10));
 
+desc Tourist;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| tid     | int         | NO   | PRI | NULL    |       |
+| Tname   | varchar(20) | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| country | varchar(10) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
 insert into Tourist values(22,'akshay',21,'india');
 insert into Tourist values(23,'arun',22,'pakisthan');
 insert into Tourist values(24,'ram',20,'china');
 insert into Tourist values(25,'janani',21,'india');
 insert into Tourist values(26,'amar',19,'bhuthan');
 
+select * from Tourist;
++-----+--------+------+-----------+
+| tid | Tname  | age  | country   |
++-----+--------+------+-----------+
+|  22 | akshay |   21 | india     |
+|  23 | arun   |   22 | pakisthan |
+|  24 | ram    |   20 | china     |
+|  25 | janani |   21 | india     |
+|  26 | amar   |   19 | bhuthan   |
++-----+--------+------+-----------+
+//updating the column inorder to get the output for query 5
+
+UPDATE Tourist
+SET Tname = "akshay",age = 21,country = "china"
+WHERE tid = 25;
+
+select * from Tourist;
++-----+--------+------+-----------+
+| tid | Tname  | age  | country   |
++-----+--------+------+-----------+
+|  22 | akshay |   21 | india     |
+|  23 | arun   |   22 | pakisthan |
+|  24 | ram    |   20 | china     |
+|  25 | akshay |   21 | china     |
+|  26 | akshay |   21 | pakisthan |
++-----+--------+------+-----------+
 
 create table Tourist_place(tpid int(10) primary key,
 tpname varchar(20),
@@ -16,6 +52,16 @@ state varchar(20),
 history varchar(20),
 kilometer int(3));
 
+desc Tourist_place;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| tpid      | int         | NO   | PRI | NULL    |       |
+| tpname    | varchar(20) | YES  |     | NULL    |       |
+| state     | varchar(20) | YES  |     | NULL    |       |
+| history   | varchar(20) | YES  |     | NULL    |       |
+| kilometer | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
 insert into Tourist_place values(11,'ooty','Tamil nadu','beuty',160);
 insert into Tourist_place values(12,'Taj','Agra','islamic design',200);
 insert into Tourist_place values(13,'gokarna','karnataka','Om beach',130);
@@ -23,21 +69,60 @@ insert into Tourist_place values(14,'holy city','varanasi','religious',180);
 insert into Tourist_place values(15,'hampi','karnataka','temple',80);
 insert into Tourist_place values(16,'kanyakumari','tamil nadu','sunrise',130);
 
+select * from Tourist_place;
++------+-------------+------------+----------------+-----------+
+| tpid | tpname      | state      | history        | kilometer |
++------+-------------+------------+----------------+-----------+
+|   11 | ooty        | Tamil nadu | beuty          |       160 |
+|   12 | Taj         | Agra       | islamic design |       200 |
+|   13 | gokarna     | karnataka  | Om beach       |       130 |
+|   14 | holy city   | varanasi   | religious      |       180 |
+|   15 | hampi       | karnataka  | temple         |        80 |
+|   16 | kanyakumari | tamil nadu | sunrise        |       130 |
++------+-------------+------------+----------------+-----------+
+
 create table e_mail(mail varchar(20),
 primary key(tid,mail),
 tid int(5) references Tourist(tid));
+
+desc e_mail;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| mail  | varchar(20) | NO   | PRI | NULL    |       |
+| tid   | int         | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
 
 insert into e_mail values('ak@gmail.com',22);
 insert into e_mail values('ar@gmail.com',23);
 insert into e_mail values('ra@gmail.com',24);
 insert into e_mail values('ja@gmail.com',25);
 insert into e_mail values('am@gmail.com',26);
- 
+
+ select * from e_mail;
++--------------+-----+
+| mail         | tid |
++--------------+-----+
+| ak@gmail.com |  22 |
+| ar@gmail.com |  23 |
+| ra@gmail.com |  24 |
+| ja@gmail.com |  25 |
+| am@gmail.com |  26 |
++--------------+-----+
 
 create table visits(vdate date,
 primary key(tid,tpid),
 tid int(5) references Tourist(tid),
 tpid int(10) references Tourist_place(tpid));
+
+desc visits;
++-------+------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-------+------+------+-----+---------+-------+
+| vdate | date | YES  |     | NULL    |       |
+| tid   | int  | NO   | PRI | NULL    |       |
+| tpid  | int  | NO   | PRI | NULL    |       |
++-------+------+------+-----+---------+-------+
 
 insert into visits values('2022-12-24',22,12);
 insert into visits values('2022-12-24',25,12);
@@ -47,6 +132,21 @@ insert into visits values('2020-09-24',23,15);
 insert into visits values('2021-05-30',22,15);
 insert into visits values('2022-11-08',22,16);
 insert into visits values('2022-09-04',26,12);
+
+select * from visits;
++------------+-----+------+
+| vdate      | tid | tpid |
++------------+-----+------+
+| 2022-12-24 |  22 |   12 |
+| 2020-08-04 |  22 |   14 |
+| 2021-05-30 |  22 |   15 |
+| 2022-11-08 |  22 |   16 |
+| 2020-09-24 |  23 |   15 |
+| 2021-01-11 |  24 |   13 |
+| 2022-12-24 |  25 |   12 |
+| 2022-09-04 |  26 |   12 |
++------------+-----+------+
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 i. List the state name which is having maximum number of tourist places.
 
@@ -86,6 +186,40 @@ visits.tpid=Tourist_place.tpid and state='karnataka');
 |  23 | arun   |   22 | pakisthan |
 |  24 | ram    |   20 | china     |
 +-----+--------+------+-----------+
+
+iv. Display the details of the tourists visited at least one tourist place of the state, but visited
+all states tourist places.
+
+select * from Tourist
+where tid in(select tid from visits,Tourist_place
+where visits.tpid=Tourist_place.tpid
+group by tid having count(distinct state)
+in(select count(distinct state) 
+from Tourist_place));
++-----+--------+------+---------+
+| tid | Tname  | age  | country |
++-----+--------+------+---------+
+|  22 | akshay |   21 | india   |
++-----+--------+------+---------+
+
+v. Display the details of the tourist place visited by the tourists of all country.
+
+select * from Tourist_place
+where tpid in(select tpid
+from visits,Tourist
+where visits.tid=Tourist.tid
+group by tpid
+having count(distinct country)=
+(select count(distinct country)
+from Tourist));
+
++------+--------+-------+----------------+-----------+
+| tpid | tpname | state | history        | kilometer |
++------+--------+-------+----------------+-----------+
+|   12 | Taj    | Agra  | islamic design |       200 |
++------+--------+-------+----------------+-----------+
+
+
 
 
 
