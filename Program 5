@@ -168,7 +168,8 @@ which are belongs to different states.
 select * from candidate
 where cid in(select cid from contest
 join const on contest.coid=const.coid
-group by cid having count(distinct(cstate))>1);
+group by cid 
+having count(distinct(cstate))>1);
 
 +-----+--------+------------+------+-----------+------+
 | cid | name   | pno        | age  | state     | pid  |
