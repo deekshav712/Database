@@ -165,7 +165,10 @@ ii. List details of Tourist place where maximum number of tourists visited.
 
 select tp.tpid,tp.tpname,tp.state,count(v.tid) 
 from Tourist_place tp,visits v
-where v.tpid=tp.tpid group by v.tpid order by count(v.tpid)desc limit 1;
+where v.tpid=tp.tpid 
+group by v.tpid 
+order by count(v.tpid)
+desc limit 1;
 
 +------+--------+-------+--------------+
 | tpid | tpname | state | count(v.tid) |
@@ -176,8 +179,10 @@ where v.tpid=tp.tpid group by v.tpid order by count(v.tpid)desc limit 1;
 iii. List the details of tourists visited all tourist places of the state “KARNATAKA”.
 
 select * from Tourist
-where tid in (select tid from visits,Tourist_place where
-visits.tpid=Tourist_place.tpid and state='karnataka');
+where tid in (select tid from visits,Tourist_place 
+where
+visits.tpid=Tourist_place.tpid 
+and state='karnataka');
 
 +-----+--------+------+-----------+
 | tid | Tname  | age  | country   |
@@ -193,7 +198,8 @@ all states tourist places.
 select * from Tourist
 where tid in(select tid from visits,Tourist_place
 where visits.tpid=Tourist_place.tpid
-group by tid having count(distinct state)
+group by tid 
+having count(distinct state)
 in(select count(distinct state) 
 from Tourist_place));
 +-----+--------+------+---------+
