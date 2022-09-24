@@ -29,8 +29,6 @@ mysql> select * from BRANCH;
 | B5       | Mech  | Dr.Manujesh B.J    |
 +----------+-------+--------------------+
 
-
-
 create table STUDENT( USN varchar(20) primary key,
 name varchar(20) not null,
 address varchar(30)not null,
@@ -171,7 +169,7 @@ mysql> SELECT * FROM BORROW;
 | 4VP21MC002 | BK1    | 2004-01-01    |
 +------------+--------+---------------+
 
------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------
 query 1:List the details of Students who are all studying in 2nd sem MCA.
 
 SELECT USN,NAME
@@ -189,6 +187,7 @@ DESC;
 | 4VP21MC002 | Akash Krishna |
 | 4VP21MC001 | Aishwarya     |
 +------------+---------------+
+_______________________________________________________________
 
 query 2:List the students who are not borrowed any books.
 
@@ -206,6 +205,7 @@ WHERE STUDENT.USN NOT IN
 | Tushar Shetty |
 +---------------+
 
+_____________________________________________________________________________________________
 
 query 3:Display the USN, Student name, Branch_name, Book_name,Author_name,Books_Borrowed_Date
  of 2nd sem MCA Students who borrowed books.
@@ -216,13 +216,15 @@ WHERE STUDENT.USN=BORROW.USN AND
 STUDENT.BRANCHID=BRANCH.BRANCHID AND
 BORROW.BOOKID=BOOK.BOOKID AND
 BOOK.AUTHORID=AUTHOR.AUTHORID AND
-STUDENT.SEM=2 AND BRANCH.BNAME="MCA";
+STUDENT.SEM=2 AND 
+BRANCH.BNAME="MCA";
 +------------+---------------+-------+----------+---------------+
 | USN        | NAME          | BNAME | BOOKNAME | BORROWED_DATE |
 +------------+---------------+-------+----------+---------------+
 | 4VP21MC002 | Akash Krishna | MCA   | DBMS     | 2004-01-01    |
 +------------+---------------+-------+----------+---------------+
 
+__________________________________________________________________
 
 query 4:Display the number of books written by each Author.
 
@@ -239,30 +241,36 @@ GROUP BY BOOK.AUTHORID;
 |        5 | Yunus             |           1 |
 +----------+-------------------+-------------+
 
+______________________________________________________________________
 
 query 5:Display the student details who borrowed more than two books.
 
 SELECT * FROM STUDENT
 WHERE USN IN
-(SELECT USN FROM BORROW GROUP BY 
-USN HAVING COUNT(USN)>=2);
+(SELECT USN FROM BORROW 
+GROUP BY USN 
+HAVING COUNT(USN)>=2);
 
+______________________________________________________________________________
 
 query 6:Display the student details who borrowed books of more than one Author.
 
 SELECT * FROM STUDENT s
 WHERE exists(SELECT br.USN
 FROM BORROW br,BOOK bk
-   WHERE br.bookid=bk.bookid AND br.USN=S.USN
+  WHERE br.bookid=bk.bookid AND 
+   br.USN=S.USN
     GROUP BY USN
-    HAVING COUNT(DISTINCT authorid)>1);
+      HAVING COUNT(DISTINCT authorid)>1);
 
+__________________________________________________________________
 
 query 7:Display the Book names in descending order of their names.
 
 SELECT BOOKNAME 
 FROM BOOK
-ORDER BY BOOKNAME DESC;
+ORDER BY BOOKNAME 
+DESC;
 +----------------------+
 | BOOKNAME             |
 +----------------------+
@@ -272,6 +280,7 @@ ORDER BY BOOKNAME DESC;
 | Data Structure       |
 +----------------------+
 
+________________________________________________________________________________________________________
 
 query 8:list the details of student who borrowed the books which are all published by the same publisher.
 
@@ -281,4 +290,4 @@ from BORROW br,BOOK bk
 WHERE br.bookid=bk.bookid
 AND s.USN=br.USN
 GROUP BY USN
-HAVING COUNT(DISTINCT publisher)=1);
+HAVING COUNT(publisher)=1);
