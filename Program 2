@@ -23,10 +23,16 @@ mysql> select * from Student;
 | 4VP21MC009 | Deekshith | 2000-12-09 | MCA    | 80.00 | 70.00 | 90.00 |  NULL | NULL |
 +------------+-----------+------------+--------+-------+-------+-------+-------+------+
 
+-------------------------------------------------------------------------------------------------------------------------------------------
+
 query 1:update the column total by adding the columns mark1,mark2,mark3.
+
 UPDATE Student SET TOTAL=MARK1+MARK2+MARK3;
 
+__________________________________________________________________________________________
+
 query 2:find the GPA score of all the students.
+
 update Student set GPA=(total/3);
 +------------+-----------+------------+--------+-------+-------+-------+--------+-------+
 | USN        | NAME      | DOB        | BRANCH | MARK1 | MARK2 | MARK3 | TOTAL  | GPA   |
@@ -39,7 +45,10 @@ update Student set GPA=(total/3);
 | 4VP21MC009 | Deekshith | 2000-12-09 | MCA    | 80.00 | 70.00 | 90.00 | 240.00 | 80.00 |
 +------------+-----------+------------+--------+-------+-------+-------+--------+-------+
 
+______________________________________________________________________________________________
+
 query 3:find the student who born on a particular year of birth from the date-of-birth column.
+
 select NAME FROM Student
 where DOB BETWEEN "2000-12-07" AND "2000-12-09";
 +-----------+
@@ -50,7 +59,10 @@ where DOB BETWEEN "2000-12-07" AND "2000-12-09";
 | Deekshith |
 +-----------+
 
+________________________________________________________________________
+
 query 4:list the student who are studying a particular branch of study.
+
 SELECT * FROM Student
 where BRANCH="MCA";
 +------------+-----------+------------+--------+-------+-------+-------+--------+-------+
@@ -61,8 +73,10 @@ where BRANCH="MCA";
 | 4VP21MC009 | Deekshith | 2000-12-09 | MCA    | 80.00 | 70.00 | 90.00 | 240.00 | 80.00 |
 +------------+-----------+------------+--------+-------+-------+-------+--------+-------+
 
+_____________________________________________________________________________________________
 
 query 5:find the maximum GPA score of the student branch-wise.
+
 SELECT  MAX(GPA),BRANCH
 FROM Student
 GROUP BY BRANCH;
@@ -73,7 +87,10 @@ GROUP BY BRANCH;
 |    90.00 | MCA    |
 +----------+--------+
 
+___________________________________________________________________
+
 query 6:find the students whose name start with the alphabet "s".
+
 SELECT NAME
 FROM Student
 WHERE NAME like "S%";
@@ -83,8 +100,10 @@ WHERE NAME like "S%";
 | Sunil |
 +-------+
 
+______________________________________________________________
 
 query 7:find the students whose name ends with alphabet "ar".
+
 select name from Student
 where NAME like "%ar";
 +-------+
@@ -93,6 +112,9 @@ where NAME like "%ar";
 | Kumar |
 +-------+
 
+________________________________________________________________
+
 query 8:delete the students details whose usn is given as 1001.
+
 delete  from Student
 where usn="4VP21MC009";
