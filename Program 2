@@ -1,3 +1,5 @@
+STUDENT :
+
 create table Student
 (USN varchar(20) primary key,
 NAME varchar(20) not null,
