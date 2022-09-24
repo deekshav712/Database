@@ -1,4 +1,5 @@
 TEAM:
+
 create table Team(Team_id char(10) primary key,
 Team_name varchar(20),
 Coach varchar(20),
@@ -44,6 +45,7 @@ insert into Team(Team_id,Team_name,Coach,City,Captain_id) values('T05','KXIP','S
 __________________________________________________________________________________________________________________
 
 PLAYER:
+
 create table Player(Player_id char(10) primary key,
 Player_name varchar(20),
 Age int(3),
@@ -97,6 +99,7 @@ update Player set Team_id='T05' where Player_id='P05';
 +-----------+-------------+------+------------+---------+
 _________________________________________________________________________________________________________
 STADIUM:
+
 create table Stadium(Stadium_id char(10) primary key,
 Stadium_name varchar(20),
 city varchar(20),
@@ -128,8 +131,8 @@ insert into Stadium values('S05','Nehru','Shibvamoga','Badravathi','577227');
 | S05        | Nehru         | Shibvamoga | Badravathi |  577227 |
 +------------+---------------+------------+------------+---------+
 ____________________________________________________________________________________________________________________
-
 MATCH:
+
 create table Match1(Match_id char(10) primary key,
 Winner_id char(10),
 Date date,
@@ -175,6 +178,7 @@ insert into Match1 values('M07','T01','1996-03-16','06:12:41','T03','T01','S01')
 ___________________________________________________________________________________________________________________________
 
 MANOFMATCH:
+
 Create table ManOfMatch(Player_id char(10),
 Match_id char(10),
 primary key(Player_id,Match_id),
