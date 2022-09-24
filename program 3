@@ -265,7 +265,8 @@ ____________________________________________________________
 
 select * from Team
 where Team_id=(select Winner_id 
-from Match1 group by Winner_id 
+from Match1 
+group by Winner_id 
 order by count(Match1.Winner_id)
 desc limit 1);
 +---------+-----------+--------+-----------+------------+
