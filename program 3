@@ -234,7 +234,8 @@ select * from Stadium
 where Stadium_id=(select Stadium_id
 from Match1 
 group by Stadium_id
-order by count(Stadium_id) desc limit 1);
+order by count(Stadium_id) 
+desc limit 1);
 +------------+--------------+---------+-------+---------+
 | Stadium_id | Stadium_name | city    | Area  | Pincode |
 +------------+--------------+---------+-------+---------+
@@ -265,7 +266,8 @@ ____________________________________________________________
 select * from Team
 where Team_id=(select Winner_id 
 from Match1 group by Winner_id 
-order by count(Match1.Winner_id)desc limit 1);
+order by count(Match1.Winner_id)
+desc limit 1);
 +---------+-----------+--------+-----------+------------+
 | Team_id | Team_name | Coach  | City      | Captain_id |
 +---------+-----------+--------+-----------+------------+
