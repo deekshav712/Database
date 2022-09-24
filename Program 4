@@ -1,3 +1,5 @@
+TOURIST :
+
 create table Tourist(tid int(5) primary key,
 Tname varchar(20),
 age int(10),
@@ -46,6 +48,9 @@ select * from Tourist;
 |  26 | akshay |   21 | pakisthan |
 +-----+--------+------+-----------+
 
+_________________________________________________________________________________
+TOURIST PLACE :
+
 create table Tourist_place(tpid int(10) primary key,
 tpname varchar(20),
 state varchar(20),
@@ -81,6 +86,10 @@ select * from Tourist_place;
 |   16 | kanyakumari | tamil nadu | sunrise        |       130 |
 +------+-------------+------------+----------------+-----------+
 
+________________________________________________________________________________________
+
+EMAIL :
+
 create table e_mail(mail varchar(20),
 primary key(tid,mail),
 tid int(5) references Tourist(tid));
@@ -109,6 +118,10 @@ insert into e_mail values('am@gmail.com',26);
 | ja@gmail.com |  25 |
 | am@gmail.com |  26 |
 +--------------+-----+
+
+___________________________________________________________________________________
+
+VISIT:
 
 create table visits(vdate date,
 primary key(tid,tpid),
@@ -148,6 +161,8 @@ select * from visits;
 +------------+-----+------+
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
+QUERIES :
+
 i. List the state name which is having maximum number of tourist places.
 
 select state,count(tpid)  
@@ -160,6 +175,7 @@ order by count(tpid)desc limit 1;
 +------------+-------------+
 | Tamil nadu |           2 |
 +------------+-------------+
+________________________________________________________________________________
 
 ii. List details of Tourist place where maximum number of tourists visited.
 
@@ -175,6 +191,7 @@ desc limit 1;
 +------+--------+-------+--------------+
 |   12 | Taj    | Agra  |            3 |
 +------+--------+-------+--------------+
+_____________________________________________________________________________________
 
 iii. List the details of tourists visited all tourist places of the state “KARNATAKA”.
 
@@ -191,6 +208,7 @@ and state='karnataka');
 |  23 | arun   |   22 | pakisthan |
 |  24 | ram    |   20 | china     |
 +-----+--------+------+-----------+
+______________________________________________________________________________________________________
 
 iv. Display the details of the tourists visited at least one tourist place of the state, but visited
 all states tourist places.
@@ -202,11 +220,13 @@ group by tid
 having count(distinct state)
 in(select count(distinct state) 
 from Tourist_place));
+
 +-----+--------+------+---------+
 | tid | Tname  | age  | country |
 +-----+--------+------+---------+
 |  22 | akshay |   21 | india   |
 +-----+--------+------+---------+
+_____________________________________________________________________________________
 
 v. Display the details of the tourist place visited by the tourists of all country.
 
@@ -224,6 +244,7 @@ from Tourist));
 +------+--------+-------+----------------+-----------+
 |   12 | Taj    | Agra  | islamic design |       200 |
 +------+--------+-------+----------------+-----------+
+________________________________________________________________
 
 
 
