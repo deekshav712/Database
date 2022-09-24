@@ -1,3 +1,4 @@
+BRANCH :
 
 create table BRANCH(branchid varchar(10) primary key,
 bname char(20) not null,
@@ -28,6 +29,8 @@ mysql> select * from BRANCH;
 | B4       | AIML  | Dr.Govindaraju     |
 | B5       | Mech  | Dr.Manujesh B.J    |
 +----------+-------+--------------------+
+_____________________________________________________________________________________
+STUDENT :
 
 create table STUDENT( USN varchar(20) primary key,
 name varchar(20) not null,
@@ -70,6 +73,8 @@ mysql> SELECT * FROM STUDENT;
 | 4VP21MC031 | Rakshith GT   | Puttur  | B1       |    2 |
 | 4VP21MC053 | Tushar Shetty | Puttur  | B1       |    2 |
 +------------+---------------+---------+----------+------+
+_____________________________________________________________________________________
+AUTHOR :
 
 create table AUTHOR(authorid int(10) primary key,
 authorname char(20),
@@ -101,6 +106,8 @@ mysql> select * from AUTHOR;
 |        4 | Deepak Kehmani    | India     |   39 |
 |        5 | Yunus             | Japan     |   34 |
 +----------+-------------------+-----------+------+
+___________________________________________________________________________________
+BOOK:
 
 create table BOOK(bookid varchar(10) primary key,
 bookname char(20),
@@ -136,7 +143,8 @@ mysql> SELECT * FROM BOOK;
 | BK3    | Data Structure       |        3 | MC Graw Hill | B3       |
 | BK5    | Thermo Dynamics      |        5 | taylor       | B5       |
 +--------+----------------------+----------+--------------+----------+
-
+___________________________________________________________________________________
+BORROW :
 
 create table BORROW(usn varchar(20),
 bookid varchar(10),
