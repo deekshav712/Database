@@ -1,3 +1,5 @@
+CANDIDATE :
+
 create table candidate(cid char(10) primary key,
 name varchar(20),
 pno char(10),
@@ -22,7 +24,6 @@ insert into candidate values('c02','darshu','9008284434',30,'karnataka','p03');
 insert into candidate values('c03','prasanna','9663782026',45,'mumbai','p04');
 insert into candidate values('c04','nethra','6364651270',35,'andra','p02');
 
-
 +-----+----------+------------+------+-----------+------+
 | cid | name     | pno        | age  | state     | pid  |
 +-----+----------+------------+------+-----------+------+
@@ -31,8 +32,8 @@ insert into candidate values('c04','nethra','6364651270',35,'andra','p02');
 | c03 | prasanna | 9663782026 |   45 | mumbai    | p04  |
 | c04 | nethra   | 6364651270 |   35 | andra     | p02  |
 +-----+----------+------------+------+-----------+------+
-
-
+_________________________________________________________________________________________
+CONSTITUENCY :
 
 create table const(coid char(10) primary key,
 cname varchar(20),
@@ -53,7 +54,6 @@ insert into const values('co02','mysore','karnataka','1000');
 insert into const values('co03','telangana','hyderbad','2000');
 insert into const values('co04','maharastra','mumbai','3000');
 
-
 +------+------------+-----------+-------+
 | coid | cname      | cstate    | votes |
 +------+------------+-----------+-------+
@@ -62,8 +62,8 @@ insert into const values('co04','maharastra','mumbai','3000');
 | co03 | telangana  | hyderbad  | 3000  |
 | co04 | maharastra | mumbai    | 2000  |
 +------+------------+-----------+-------+
-
-
+_________________________________________________________________________________________
+VOTER :
 
 create table voter(vid char(10) primary key,
 vname varchar(20),
@@ -90,7 +90,6 @@ insert into voter values('v02','shrunga',35,'vitla','co04','c04');
 insert into voter values('v03','geetha',55,'patte','co03','c03');
 insert into voter values('v04','jhanu',41,'puttur','co02','c02');
 
-
 +-----+---------+------+--------+------+------+
 | vid | vname   | age  | addr   | coid | cid  |
 +-----+---------+------+--------+------+------+
@@ -99,7 +98,8 @@ insert into voter values('v04','jhanu',41,'puttur','co02','c02');
 | v03 | geetha  |   55 | patte  | co03 | c03  |
 | v04 | jhanu   |   41 | puttur | co02 | c02  |
 +-----+---------+------+--------+------+------+
-
+___________________________________________________________________________________________
+PARTY :
 
 create table party(pid char(10) primary key,
 pname varchar(20),
@@ -126,6 +126,8 @@ insert into party values('p04','others','clock');
 | p03 | congress | hand        |
 | p04 | others   | clock       |
 +-----+----------+-------------+
+___________________________________________________________________________________________
+CONTEST :
 
 create table contest(cid char(10),
 coid char(10),
@@ -140,14 +142,12 @@ foreign key(coid)references const(coid));
 | coid  | char(10) | NO   | PRI | NULL    |       |
 +-------+----------+------+-----+---------+-------+
 
-
 insert into contest values('c01','co01');
 insert into contest values('c02','co02');
 insert into contest values('c03','co03');
 insert into contest values('c04','co04');
 insert into contest values('c02','co04');
 insert into contest values('c04','co03');
-
 
 +-----+------+
 | cid | coid |
@@ -161,6 +161,7 @@ insert into contest values('c04','co03');
 +-----+------+
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------
+QUERIES :
 
 i. List the details of the candidates who are contesting from more than one constituencies
 which are belongs to different states.
@@ -177,6 +178,7 @@ having count(distinct(cstate))>1);
 | c02 | darshu | 9008284434 |   30 | karnataka | p03  |
 | c04 | nethra | 6364651270 |   35 | andra     | p02  |
 +-----+--------+------------+------+-----------+------+
+_____________________________________________________________________
 
 ii. Display the state name having maximum number of constituencies.
 
@@ -190,6 +192,7 @@ select const.cstate,count(coid)
 +-----------+-------------+
 | karnataka |           2 |
 +-----------+-------------+
+___________________________________________________________________________________________________
 
 iii. Create a stored procedure to insert the tuple into the voter table by checking the voter
 age. If voter’s age is at least 18 years old, then insert the tuple into the voter else display the
@@ -209,7 +212,6 @@ end if;
 select msg; 
 end$$
 
-
 call abc(07,'abc',26,'patla','xyz');
     -> $$
 +--------------+
@@ -217,6 +219,7 @@ call abc(07,'abc',26,'patla','xyz');
 +--------------+
 | row inserted |
 +--------------+
+_______________________________________________________________________________________________
 
 iv. Create a stored procedure to display the number_of_voters in the specified constituency.
 Where the constituency name is passed as an argument to the stored procedure.
@@ -235,7 +238,7 @@ mysql> call new1('hassan');
 +-------+
 | 103   |
 +-------+
-
+_______________________________________________________________________________________
 
 v. Create a TRIGGER to UPDATE the count of “ Number_of_voters” of the respective
 constituency in “CONSTITUENCY” table , AFTER inserting a tuple into the “VOTERS” table.
@@ -248,7 +251,6 @@ begin update const
 set votes=votes+3
 where coid=new.coid;
 end$$
-
 
 insert into voter values('v08','dhanya',22,'kav','co01','c01');
     -> $$
@@ -264,3 +266,4 @@ mysql> select * from const;
 | co03 | telangana  | hyderbad  | 2000  |
 | co04 | maharastra | mumbai    | 3000  |
 +------+------------+-----------+-------+
+____________________________________________________________________________________________
