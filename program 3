@@ -279,7 +279,18 @@ desc limit 1);
 | T01     | RCB       | Dravid | Bangalore | P01        |
 +---------+-----------+--------+-----------+------------+
 
-_________________________________________________________________
+______________________________________________________________________________
+5) Display the team name where all its won matches played in the same stadium.
+
+select m.Winner_id
+from Match1 m,Team t,Stadium s
+where m.Winner_id=t.Team_id 
+And m.Stadium_id=s.Stadium_id
+group by Winner_id
+having count(distinct m.Stadium_id)>1;
+
+
+_________________________________________________________________________________________
 
 
 
